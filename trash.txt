@@ -1,0 +1,12 @@
+     const serpenGeometry = new THREE.TorusKnotGeometry(7,1.85,117,11,9,3);
+    const serpenMaterial = new THREE.MeshStandardMaterial( { 
+      color: "white",
+      emissive: "white",
+      emissiveIntensity: 0,
+      roughness: 0.2,
+      metalness: 0.1
+
+    } );
+    const serpenMesh = new THREE.Mesh(serpenGeometry,serpenMaterial);
+    serpenMesh.position.x = 80;
+    scene.add(serpenMesh);

@@ -18,12 +18,12 @@ const sizes = {
 };
 
 //Camera
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 1, 300);  // pov, aspect, near, far
-camera.position.z = 50;
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 1, 600);  // pov, aspect, near, far
+camera.position.z = 150;
 scene.add(camera);
 
  // Light
-const light = new THREE.PointLight("white",100, 1000); // color, density, range
+const light = new THREE.PointLight("white",100, 500); // color, density, range
 light.position.set(10,20,20);  // x,y,z
 scene.add(light);
 
@@ -89,25 +89,39 @@ return { scene, camera, render, controls };
     sunMesh2.position.x = 20;
     scene.add(sunMesh2);
     
-    const serpenGeometry = new THREE.TorusKnotGeometry(10,3,100,16);
-    const serpenMaterial = new THREE.MeshStandardMaterial( { 
-      color: "white",
-      emissive: "white",
+    const serpenGeometry = new THREE.TorusKnotGeometry(10,1.9701,205,13,6,3);
+    const serpenMaterial = new THREE.MeshPhongMaterial( { 
+      color: "#17ec13",
+      emissive: "#000000",
+      specular: "#c61010",
+
       emissiveIntensity: 0,
       roughness: 0.2,
       metalness: 0.1
 
     } );
+
+    //Serpen
     const serpenMesh = new THREE.Mesh(serpenGeometry,serpenMaterial);
     serpenMesh.position.x = 60;
+    serpenMesh.rotation.y = (Math.PI / 2)-135;
     scene.add(serpenMesh);
 
-    const geometry = new THREE.OctahedronGeometry(15,5);
+  const geometry = new THREE.OctahedronGeometry(15,5);
   const material = new THREE.MeshBasicMaterial( { color: "gray" } );
-  const octahedron = new THREE.Mesh( geometry, material );
-  octahedron.position.x = 100;
-  octahedron.position.z = 96;
-    scene.add( octahedron );
+  const octahedronMesh = new THREE.Mesh( geometry, material );
+  octahedronMesh.position.x = 100;
+  scene.add( octahedronMesh );
+
+  const water = new THREE.SphereGeometry(9,32,32);
+  const waterMaterial = new THREE.MeshToonMaterial({color:"#00a2ff"});
+  const waterMesh = new THREE.Mesh(water,waterMaterial);
+  waterMesh.position.x = 150;
+ 
+  scene.add(waterMesh);
+
+
+
 
     gsap.to(sunMesh.rotation, {
       y: Math.PI * 10,
@@ -116,14 +130,6 @@ return { scene, camera, render, controls };
       ease: "none"
     })
 
-  //   gsap.to(sunMesh2.position, {
-  //   z: "+=120", // ileri geri hareket
-  //   duration: 4,
-  //   repeat: -1,
-  //   yoyo: true,
-  //   ease: "power1.inOut"
-  // });
- 
   }
 
  
