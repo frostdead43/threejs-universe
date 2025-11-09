@@ -110,35 +110,38 @@ return { scene, camera, render, controls };
       emissiveIntensity: 0.1,
     } );
 
-    //Serpen
+    //Mehmet & Linea
     const mehmetMesh = new THREE.Mesh(mehmetGeometry,mehmetMaterial);
     mehmetMesh.position.x = 60;
     mehmetMesh.rotation.y = (Math.PI / 2)-135;
     scene.add(mehmetMesh);
 
-  const geometry = new THREE.IcosahedronGeometry(15,1);
-  const material = new THREE.MeshPhysicalMaterial( { 
+
+    
+  const granPulseGeometry = new THREE.IcosahedronGeometry(15,1);
+  const granPulseMaterial = new THREE.MeshPhysicalMaterial( { 
     color: "#88e0ff",       // açık mavi ton    // yüzey pürüzsüz
     metalness: 0.0,         // hafif metal yansıması
     transmission: 0,        // saydamlık (1 = tamamen cam gibi)
     thickness: 1.5,         // kalınlık, kırılmayı etkiler               // kırılma indeksi (elmas = 2.4, cam = 1.5)
 
    } );
-  const octahedronMesh = new THREE.Mesh( geometry, material );
-  octahedronMesh.position.x = 100;
-  scene.add( octahedronMesh );
-
-  const water = new THREE.SphereGeometry(9,32,32);
-  const waterMaterial = new THREE.MeshToonMaterial({color:"#00a2ff"});
-  const waterMesh = new THREE.Mesh(water,waterMaterial);
-  waterMesh.position.x = 150;
- 
-  scene.add(waterMesh);
+  const granPulseMesh = new THREE.Mesh( granPulseGeometry, granPulseMaterial );
+  granPulseMesh.position.x = 100;
+  scene.add( granPulseMesh );
 
 
+   //Naiad
+  const naiadGeometry = new THREE.SphereGeometry(9,32,32);
+  const naiadMaterial = new THREE.MeshToonMaterial({color:"#00a2ff"});
+  const naiadMesh = new THREE.Mesh(naiadGeometry,naiadMaterial);
+  naiadMesh.position.x = 150;
+  scene.add(naiadMesh);
 
 
-    gsap.to(octahedronMesh.rotation, {
+
+
+    gsap.to(granPulseMesh.rotation, {
       y: Math.PI * 10,
       duration: 20,
       repeat:-1,
