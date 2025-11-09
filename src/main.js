@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import Stats from "three/examples/jsm/libs/stats.module.js";
 import gsap from "gsap";
+import {GUI} from "lil-gui"
 import "./style.css"
 
 
@@ -48,7 +50,20 @@ controls.enableDamping = false;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 2;
 
+// Stats
+const stats = new Stats();
+stats.showPanel(0);
+stats.showPanel(1);
+stats.showPanel(2);
+document.body.appendChild(stats.dom);
 
+// Camera GUI
+const gui = new GUI();
+const cameraFolder = gui.addFolder("Camera Position");
+cameraFolder.add(camera.position, "x", -10,10).listen();
+cameraFolder.add(camera.position, "y", -10,10).listen();
+cameraFolder.add(camera.position, "z", -10,10).listen();
+cameraFolder.open();
 
 
 //Resize
@@ -235,16 +250,17 @@ return { scene, camera, render, controls };
 
 
 
-function loop(render, scene, camera, controls) {
+function loop(render, scene, camera, controls,stats) {
   controls.update();
   render.render(scene,camera);
   requestAnimationFrame(() => loop(render, scene, camera, controls));
+  stats.begin();
 }
 
 
 
 function init() {
-  const { scene, camera, render, controls } = createScene();
+  const { scene, camera, render, controls,stats } = createScene();
   createPlanets(scene);
   loop(render, scene, camera, controls);
 }
