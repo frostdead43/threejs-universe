@@ -45,8 +45,8 @@ render.render(scene,camera)
 //Controls
 const controls = new OrbitControls(camera,canvas);
 controls.enableDamping = false;
-controls.autoRotate = false;
-controls.autoRotateSpeed = 1
+controls.autoRotate = true;
+controls.autoRotateSpeed = 2;
 
 
 
@@ -75,7 +75,7 @@ return { scene, camera, render, controls };
         {
         color:"white",
         emissive:"white",
-        emissiveIntensity: 0,
+        emissiveIntensity: 1,
         roughness: 0.2,
         metalness: 0.1,
 
@@ -83,32 +83,47 @@ return { scene, camera, render, controls };
       const sunMesh = new THREE.Mesh(sunGeometry,sunMaterial);
     scene.add(sunMesh);
 
-      const sunGeometry2 = new THREE.SphereGeometry(3,32,32);
-      const sunMaterial2 = new THREE.MeshStandardMaterial({color:"blue"});
-      const sunMesh2 = new THREE.Mesh(sunGeometry2,sunMaterial2);
-    sunMesh2.position.x = 20;
-    scene.add(sunMesh2);
+      const alazGeometry = new THREE.SphereGeometry(3,64,64);
+      const alazMaterial = new THREE.MeshStandardMaterial({
+        color:"#8B0000",
+        emissive:"#FF4400",
+        emissiveIntensity: 1.2,
+        metalness: 0.1,
+        roughness: 0.6
+
+      });
+      const alazMesh = new THREE.Mesh(alazGeometry,alazMaterial);
+    alazMesh.position.x = 30;
+    scene.add(alazMesh);
     
-    const serpenGeometry = new THREE.TorusKnotGeometry(10,1.9701,205,13,6,3);
-    const serpenMaterial = new THREE.MeshPhongMaterial( { 
-      color: "#17ec13",
-      emissive: "#000000",
-      specular: "#c61010",
-
-      emissiveIntensity: 0,
+    const mehmetGeometry = new THREE.SphereGeometry(5,32,32);
+    const mehmetMaterial = new THREE.MeshPhongMaterial( { 
+      color: "#aaccff",        // pastel mavi
       roughness: 0.2,
-      metalness: 0.1
-
+      metalness: 0.1,
+      transmission: 1,
+      thickness: 1.5,
+      ior: 1.5,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
+      emissive: "#66ccff",
+      emissiveIntensity: 0.1,
     } );
 
     //Serpen
-    const serpenMesh = new THREE.Mesh(serpenGeometry,serpenMaterial);
-    serpenMesh.position.x = 60;
-    serpenMesh.rotation.y = (Math.PI / 2)-135;
-    scene.add(serpenMesh);
+    const mehmetMesh = new THREE.Mesh(mehmetGeometry,mehmetMaterial);
+    mehmetMesh.position.x = 60;
+    mehmetMesh.rotation.y = (Math.PI / 2)-135;
+    scene.add(mehmetMesh);
 
-  const geometry = new THREE.OctahedronGeometry(15,5);
-  const material = new THREE.MeshBasicMaterial( { color: "gray" } );
+  const geometry = new THREE.IcosahedronGeometry(15,1);
+  const material = new THREE.MeshPhysicalMaterial( { 
+    color: "#88e0ff",       // açık mavi ton    // yüzey pürüzsüz
+    metalness: 0.0,         // hafif metal yansıması
+    transmission: 0,        // saydamlık (1 = tamamen cam gibi)
+    thickness: 1.5,         // kalınlık, kırılmayı etkiler               // kırılma indeksi (elmas = 2.4, cam = 1.5)
+
+   } );
   const octahedronMesh = new THREE.Mesh( geometry, material );
   octahedronMesh.position.x = 100;
   scene.add( octahedronMesh );
@@ -123,9 +138,9 @@ return { scene, camera, render, controls };
 
 
 
-    gsap.to(sunMesh.rotation, {
+    gsap.to(octahedronMesh.rotation, {
       y: Math.PI * 10,
-      duration: 8,
+      duration: 20,
       repeat:-1,
       ease: "none"
     })

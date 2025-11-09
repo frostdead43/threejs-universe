@@ -1,12 +1,17 @@
-     const serpenGeometry = new THREE.TorusKnotGeometry(7,1.85,117,11,9,3);
-    const serpenMaterial = new THREE.MeshStandardMaterial( { 
-      color: "white",
-      emissive: "white",
+const serpenGeometry = new THREE.TorusKnotGeometry(10,1.9701,205,13,6,3);
+    const serpenMaterial = new THREE.MeshPhongMaterial( { 
+      color: "#17ec13",
+      emissive: "#000000",
+      specular: "#c61010",
+
       emissiveIntensity: 0,
       roughness: 0.2,
       metalness: 0.1
 
     } );
+
+    //Serpen
     const serpenMesh = new THREE.Mesh(serpenGeometry,serpenMaterial);
-    serpenMesh.position.x = 80;
+    serpenMesh.position.x = 60;
+    serpenMesh.rotation.y = (Math.PI / 2)-135;
     scene.add(serpenMesh);
