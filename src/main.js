@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import gsap from "gsap";
 import {GUI} from "lil-gui"
@@ -64,6 +65,14 @@ cameraFolder.add(camera.position, "x", -10,10).listen();
 cameraFolder.add(camera.position, "y", -10,10).listen();
 cameraFolder.add(camera.position, "z", -10,10).listen();
 cameraFolder.open();
+
+//texture
+new RGBELoader()
+  .load("/textures/starmap_2020_4k.hdr", (texture) => {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    scene.background = texture;
+    scene.environment = texture;
+  });
 
 
 //Resize
