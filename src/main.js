@@ -263,7 +263,6 @@ function loop(render, scene, camera, controls,stats) {
   controls.update();
   render.render(scene,camera);
   requestAnimationFrame(() => loop(render, scene, camera, controls));
-  stats.begin();
 }
 
 
